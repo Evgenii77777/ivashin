@@ -1,0 +1,30 @@
+[
+  {
+    "id": "id-1",
+    "text": "Выучить основы React",
+    "completed": true,
+    "tegs": ["#work", "#study"],
+    "isFind": false
+  },
+  {
+    "id": "id-2",
+    "text": "Разобраться с React Router",
+    "completed": false,
+    "tegs": ["#work"],
+    "isFind": false
+  },
+  {
+    "id": "id-3",
+    "text": "Привыкнуть к Redux",
+    "completed": false,
+    "tegs": [],
+    "isFind": false
+  },
+  {
+    "id": "id-4",
+    "text": "Попробовать React Hooks",
+    "completed": true,
+    "tegs": [],
+    "isFind": false
+  }
+]
