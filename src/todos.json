@@ -3,14 +3,14 @@
     "id": "id-1",
     "text": "Выучить основы React",
     "completed": true,
-    "tegs": ["#work", "#study"],
+    "tegs": [],
     "isFind": false
   },
   {
     "id": "id-2",
-    "text": "Разобраться с React Router",
+    "text": "Разобраться с React Router #study",
     "completed": false,
-    "tegs": ["#work"],
+    "tegs": ["#study"],
     "isFind": false
   },
   {

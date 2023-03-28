@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useState, useCallback } from "react";
 
 type TodoProps = {
   text: string;
@@ -21,6 +21,52 @@ type TodoProps = {
   >;
 };
 
+const LigthText = (props: { filter: any; str: any }) => {
+  const { filter, str } = props;
+
+  // console.log(filter);
+  // console.log(str);
+
+  if (!filter) return str;
+  const regExp = new RegExp(filter, "ig");
+  const matchValues = str.match(regExp);
+
+  if (matchValues) {
+    return str
+      .split(regExp)
+      .map(
+        (
+          letter:
+            | string
+            | number
+            | boolean
+            | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+            | null
+            | undefined,
+          i: number,
+          array: string | any[]
+        ) => {
+          if (i < array.length - 1) {
+            const MatchLetter = matchValues.shift();
+
+            return (
+              <React.Fragment>
+                {letter}
+                <span data-test-id="highlight-matches" className="letters--red">
+                  {MatchLetter}
+                </span>
+              </React.Fragment>
+            );
+          }
+
+          return letter;
+        }
+      );
+  }
+
+  return str;
+};
+
 export const Todo = ({
   text,
   completed,
@@ -31,8 +77,14 @@ export const Todo = ({
   setTodos,
 }: TodoProps) => {
   const [updatedItem, setUpdatedItem] = useState("");
-  const isCurrentBeingUpdated = updatedItem === id;
 
+  const isCurrentBeingUpdated = updatedItem === id;
+  const ligth = useCallback(
+    (str: any) => (
+      <LigthText filter={tegs?.map((teg) => teg).join("")} str={str} />
+    ),
+    [tegs]
+  );
   const handleInputChange = (e: any) => {
     if (e.target.value.includes("#")) {
       let teg = e.target.value
@@ -46,7 +98,7 @@ export const Todo = ({
     } else {
       setTodos((prevList: any) =>
         prevList.map((todo: any) =>
-          todo.id === id ? { ...todo, tegs: [] } : todo
+          todo.id === id ? { ...todo, tegs: [tegs] } : todo
         )
       );
     }
@@ -62,7 +114,7 @@ export const Todo = ({
     return isCurrentBeingUpdated ? (
       <input value={text} onChange={handleInputChange} />
     ) : (
-      <p className="TodoList__text">{text}</p>
+      <p className="TodoList__text">{ligth(text)}</p>
     );
   };
 
